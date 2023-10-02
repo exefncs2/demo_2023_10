@@ -1,0 +1,19 @@
+version: '3'
+services:
+  airflow:
+    image: apache/airflow:latest
+    ports:
+      - "5555:8080"
+      - "5432:5432"
+    volumes:
+      - ./start.sh:/opt/airflow/start.sh
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./.env:/opt/airflow/.env
+      - ./airflow.cfg:/opt/airflow/airflow.cfg
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+    command:
+      - "bash"
+      - "/opt/airflow/start.sh"  # 这里运行 Shell 脚本
