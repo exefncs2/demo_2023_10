@@ -1,5 +1,5 @@
 # 指定基础镜像
-FROM python:latest
+FROM python:3.11.5
 
 # 设置工作目录
 WORKDIR /work
