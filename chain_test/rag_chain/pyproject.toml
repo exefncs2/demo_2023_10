@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag_chain"
+version = "0.2.0"
+description = "A comprehensive package for integrating various functionalities including database operations, OpenAI's GPT and embeddings, and Google Cloud Platform (GCP) secrets management."
+authors = [{name = "felix", email = "XXXXXX@gmail.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "openai>=0.10.2",
+    "python-dotenv>=0.19.0",
+    "psycopg2-binary>=2.9.1",
+    "sqlalchemy>=1.4.22",
+    "google-cloud-secret-manager>=2.7.0",
+    "uvicorn>=0.15.0",
+    "fastapi>=0.70.0"
+]
+
+[tool.poetry.scripts]
+rag_chain = 'rag_chain:main'
+
+

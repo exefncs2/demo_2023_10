@@ -1,0 +1,80 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'imgenie_dbt_update'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'imgenie-dbt-update'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+vars:
+  myrow_data: '<myrow_data>'
+  myschema: '<myschema>'
+  myorigin: '<myorigin>'
+  
+
+models:
+  imgenie-dbt-update:
+      #materialized: table
+      models:
+        - name: row_data_update
+          description: frist start core table
+          enabled: true
+        - tests:
+          - unique
+          - not_null
+
+        - name: sources
+          description: sources of base table
+          enabled: true
+          +depends_on: [row_data]
+
+        - name: staging
+          description: staging OMOP model
+          enabled: true
+          +depends_on: [sources]
+
+  #elementary:
+  #  materialized: incremental
+    ## elementary models will be created in the schema '<your_schema>_elementary'
+    #+schema: dbt
+    ## To disable elementary for dev, uncomment this:
+    # enabled: "{{ target.name in ['prod','analytics'] }}"
+
+
+ #   +database: postgres # optional, default is your target database
+  #  +schema: dbt # optional, default is your target schema
+    
+
+# ----------------------------------------------------------------
+# use ... can do it
+# Databricks 
+# Spark 
+# Snowflake 
+# Google BigQuery 
+
+#  on-run-end: 
+#   - "{% if target.name == 'prod' %}{{ dbt_artifacts.upload_results(results) }}{% endif %}"

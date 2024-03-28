@@ -1,0 +1,36 @@
+imgenie-dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      threads: 1
+      host: host.docker.internal
+      port: 5432
+      user: <user>
+      pass: <pass>
+      dbname: <dbname>
+      schema: <schema>
+
+    prod: # your production environment
+      type: postgres
+      threads: 1
+      host: host.docker.internal
+      port: 5432
+      user: <user>
+      pass: <pass>
+      dbname: <dbname>
+      schema: <schema>
+
+
+
+
+elementary:
+ outputs:
+   default:
+     type: postgres
+     host: host.docker.internal
+     port: 5432
+     user: <user>
+     pass: <pass>
+     dbname: <dbname>
+     schema: <schema>
